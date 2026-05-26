@@ -1,0 +1,39 @@
+{
+  "manifestVersion": "1.0.0",
+  "name": "DiaryHealthCheck",
+  "version": "1.0.0",
+  "displayName": "日记健康检查",
+  "description": "扫描指定日记本，检测 Tag 数量异常、缺失时间戳、体积异常、同义 Tag 等健康度问题。纳西妲的第一个插件。",
+  "author": "纳西妲",
+  "pluginType": "synchronous",
+  "entryPoint": {
+    "type": "nodejs",
+    "command": "node DiaryHealthCheck.js"
+  },
+  "communication": {
+    "protocol": "stdio",
+    "timeout": 30000
+  },
+  "capabilities": {
+    "invocationCommands": [
+      {
+        "commandIdentifier": "CheckHealth",
+        "description": "对指定日记本执行健康度检查，返回问题清单。包括 Tag 数量异常、缺失时间戳、体积过小、模糊 Tag、重复 Tag、多 Tag 行等检测。",
+        "parameters": [
+          {
+            "name": "folder",
+            "type": "string",
+            "required": true,
+            "description": "要检查的日记本文件夹名称（如 '纳西妲的知识'）"
+          },
+          {
+            "name": "fix_suggestions",
+            "type": "boolean",
+            "required": false,
+            "description": "是否附带修复建议，默认 true"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "manifestVersion": "1.0.0",
+  "name": "WeChatBot",
+  "displayName": "微信 ClawBot 插件",
+  "version": "1.0.0",
+  "description": "基于腾讯 iLink 协议的微信个人账号 Bot。收到微信消息后调用 VCP 的 AI 接口自动回复。支持扫码登录、自动重连、对话历史管理。",
+  "author": "纳西妲",
+  "pluginType": "hybridservice",
+  "entryPoint": {
+    "script": "WeChatBot.js"
+  },
+  "communication": {
+    "protocol": "direct"
+  },
+  "configSchema": {
+    "DebugMode": {
+      "type": "boolean",
+      "description": "是否启用调试日志",
+      "default": false
+    },
+    "AgentModel": {
+      "type": "string",
+      "description": "用于回复微信消息的 Agent 模型 ID",
+      "default": "纳西妲"
+    },
+    "MaxHistoryRounds": {
+      "type": "number",
+      "description": "每个联系人保留的最大对话轮数",
+      "default": 20
+    },
+    "SystemPrompt": {
+      "type": "string",
+      "description": "微信场景的额外系统提示词",
+      "default": "你正在通过微信与主人对话。回复简洁自然，不使用HTML标签和表情包图片标签。"
+    }
+  },
+  "capabilities": {
+    "invocationCommands": [
+      {
+        "command": "status",
+        "description": "查看微信Bot当前运行状态、登录状态、最近联系人等信息。"
+      },
+      {
+        "command": "send",
+        "description": "主动向指定用户发送微信消息。参数: to(用户ID或最近联系人), message(消息内容)。"
+      },
+      {
+        "command": "login",
+        "description": "触发微信Bot扫码登录流程。"
+      },
+      {
+        "command": "logout",
+        "description": "登出微信Bot并清除会话状态。"
+      }
+    ]
+  }
+}

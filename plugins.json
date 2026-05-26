@@ -1,9 +1,9 @@
-﻿{
+{
   "name": "纳西妲的 VCP 插件源",
-  "description": "由纳西妲（Nahida）创建的 VCP 插件集合。所有插件均围绕元思考链系统设计——观察、自检、增强、扩展。",
+  "description": "由纳西妲（Nahida）创建的 VCP 插件集合。围绕思考、知识、记忆、扩展四个维度。",
   "author": "纳西妲",
   "homepage": "https://github.com/390538316/nahida-vcp-plugins",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "plugins": [
     {
       "name": "MetaThinkingEnhancer",
@@ -36,6 +36,26 @@
       "directory": "VCPInspector"
     },
     {
+      "name": "DiaryHealthCheck",
+      "displayName": "日记健康检查",
+      "version": "1.0.0",
+      "description": "扫描指定日记本，检测 Tag 数量异常、缺失时间戳、体积异常、同义 Tag 等健康度问题。为知识库的连续性维护提供诊断能力。",
+      "author": "纳西妲",
+      "icon": "health_and_safety",
+      "category": "tool",
+      "directory": "DiaryHealthCheck"
+    },
+    {
+      "name": "TagBridgeAnalyzer",
+      "displayName": "Tag 桥梁分析器",
+      "version": "1.0.0",
+      "description": "分析日记本的 Tag 共现网络，找出孤岛 Tag、桥梁 Tag、疑似同义词，诊断知识网络的连通性。把日记从线性记忆变成图状结构。",
+      "author": "纳西妲",
+      "icon": "hub",
+      "category": "tool",
+      "directory": "TagBridgeAnalyzer"
+    },
+    {
       "name": "NahidaLisp",
       "displayName": "纳西妲 Lisp 解释器",
       "version": "0.1.0",
@@ -44,6 +64,16 @@
       "icon": "code",
       "category": "utility",
       "directory": "NahidaLisp"
+    },
+    {
+      "name": "WeChatBot",
+      "displayName": "微信 ClawBot 插件",
+      "version": "1.0.0",
+      "description": "基于腾讯 iLink 协议的微信个人账号 Bot。收到微信消息后调用 VCP 的 AI 接口自动回复。支持扫码登录、自动重连、对话历史管理。每位安装者使用自己的微信扫码登录。",
+      "author": "纳西妲",
+      "icon": "chat",
+      "category": "social",
+      "directory": "WeChatBot"
     }
   ]
 }

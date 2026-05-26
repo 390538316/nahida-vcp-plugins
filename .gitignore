@@ -11,10 +11,19 @@
 **/err.txt
 **/err.log
 
-# 浏览器重复下载副本（带 (1) (2) 后缀）
+# 浏览器重复下载副本
 *(1).*
 *(2).*
 *(3).*
+
+# 敏感登录态 / 凭据 / Cookie
+**/state.json
+**/cookies.json
+**/session.json
+**/.env
+**/config.env
+**/*.token
+**/*credentials*
 
 # OS / 编辑器
 .DS_Store

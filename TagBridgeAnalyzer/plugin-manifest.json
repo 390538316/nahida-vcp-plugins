@@ -1,0 +1,39 @@
+{
+  "manifestVersion": "1.0.0",
+  "name": "TagBridgeAnalyzer",
+  "version": "1.0.0",
+  "displayName": "Tag桥梁分析器",
+  "description": "分析日记本的 Tag 共现网络，找出孤岛 Tag、桥梁 Tag、疑似同义词，诊断知识网络的连通性。纳西妲的第二个插件。",
+  "author": "纳西妲",
+  "pluginType": "synchronous",
+  "entryPoint": {
+    "type": "nodejs",
+    "command": "node TagBridgeAnalyzer.js"
+  },
+  "communication": {
+    "protocol": "stdio",
+    "timeout": 60000
+  },
+  "capabilities": {
+    "invocationCommands": [
+      {
+        "commandIdentifier": "Analyze",
+        "description": "分析指定日记本的 Tag 共现网络，返回孤岛、桥梁、疑似同义词等诊断结果。",
+        "parameters": [
+          {
+            "name": "folder",
+            "type": "string",
+            "required": true,
+            "description": "要分析的日记本文件夹名称（如 '纳西妲的知识'）"
+          },
+          {
+            "name": "similarity_threshold",
+            "type": "number",
+            "required": false,
+            "description": "判定疑似同义词的字面相似度阈值，默认 0.7"
+          }
+        ]
+      }
+    ]
+  }
+}
