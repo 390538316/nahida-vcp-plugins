@@ -1,0 +1,5 @@
+(define (cadr lst) (car (cdr lst)))
+(define (string-reverse s) (list->string (reverse (string->list s))))
+(define (string-repeat n s) (if (= n 0) "" (string-append s (string-repeat (- n 1) s))))
+(print (string-reverse "hello"))
+(print (string-repeat 3 "ab"))

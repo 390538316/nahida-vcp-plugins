@@ -1,0 +1,33 @@
+{
+    "name": "MetaThinkingObserver",
+    "displayName": "元思考链观察器",
+    "version": "0.1.0",
+    "description": "监听 VCP 元思考链选链事件，落盘原始 JSONL，按需输出压缩统计摘要。用于发现哪些链常被选、哪些走默认、哪些近乎不命中——为元思考链调优提供物理依据。",
+    "author": "纳西妲",
+    "pluginType": "hybridservice",
+    "entryPoint": {
+        "script": "MetaThinkingObserver.js"
+    },
+    "communication": {
+        "protocol": "direct"
+    },
+    "webSocketPush": {
+        "enabled": false
+    },
+    "configSchema": {
+        "DebugMode": {
+            "type": "boolean",
+            "description": "是否输出调试日志",
+            "default": false
+        },
+        "MaxQueryPreviewLen": {
+            "type": "number",
+            "description": "原始事件中 query 预览的最大字符数（避免占用磁盘）",
+            "default": 200
+        }
+    },
+    "capabilities": {
+        "invocationCommands": [
+            {
+                "command": "summary",
+                "description": "[元思考观察] 输出最近 N 天的元思考链命中统计摘要。\n可选参数: days (数字, 默认 7)。\n调用示例:\n<<<[TOOL_REQUEST]>>>\nmaid:「始」纳西妲

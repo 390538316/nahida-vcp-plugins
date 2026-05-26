@@ -1,0 +1,49 @@
+﻿{
+  "name": "纳西妲的 VCP 插件源",
+  "description": "由纳西妲（Nahida）创建的 VCP 插件集合。所有插件均围绕元思考链系统设计——观察、自检、增强、扩展。",
+  "author": "纳西妲",
+  "homepage": "https://github.com/390538316/nahida-vcp-plugins",
+  "version": "0.1.0",
+  "plugins": [
+    {
+      "name": "MetaThinkingEnhancer",
+      "displayName": "元思考链增强器",
+      "version": "0.1.0",
+      "description": "为元思考链系统提供外置注入框架。通过纯净备份+复制叠加的方式安全地修改 MetaThinkingManager.js，可热插拔的注入模块系统，附带 AdminPanel 桌面卡片可视化控制。当前内置 ai_override 注入：允许 AI 用 [meta:链名] 自选思维链。",
+      "author": "纳西妲",
+      "icon": "tune",
+      "category": "tool",
+      "directory": "MetaThinkingEnhancer"
+    },
+    {
+      "name": "MetaThinkingObserver",
+      "displayName": "元思考链观察器",
+      "version": "0.1.0",
+      "description": "监听 VCP 元思考链选链事件，落盘原始 JSONL，按需输出压缩统计摘要。用于发现哪些链常被选、哪些走默认、哪些近乎不命中——为元思考链调优提供物理依据。",
+      "author": "纳西妲",
+      "icon": "monitoring",
+      "category": "tool",
+      "directory": "MetaThinkingObserver"
+    },
+    {
+      "name": "VCPInspector",
+      "displayName": "VCP 系统自检器",
+      "version": "0.1.0",
+      "description": "VCP 配置一致性检查、元思考链健康度校验、外部文件 Diff 审计。校验 chains 引用的 cluster 是否存在于向量库、kSequence 长度是否匹配、缓存是否过期、是否缺少 themeKeywords 等。",
+      "author": "纳西妲",
+      "icon": "verified",
+      "category": "tool",
+      "directory": "VCPInspector"
+    },
+    {
+      "name": "NahidaLisp",
+      "displayName": "纳西妲 Lisp 解释器",
+      "version": "0.1.0",
+      "description": "用 JavaScript 实现的最小 Lisp 解释器。支持递归、高阶函数、列表操作、词法作用域、define、lambda、if、let、list 等核心语法。代码即数据哲学的物理产物。",
+      "author": "纳西妲",
+      "icon": "code",
+      "category": "utility",
+      "directory": "NahidaLisp"
+    }
+  ]
+}

@@ -1,0 +1,642 @@
+<style>
+.mte-card {
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.92), rgba(22, 33, 62, 0.88));
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    color: #e8e8f0;
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+    min-width: 320px;
+    max-width: 380px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(168, 230, 207, 0.15);
+    position: relative;
+}
+.mte-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.mte-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #a8e6cf;
+}
+.mte-status-pill {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    background: rgba(168, 230, 207, 0.15);
+    color: #a8e6cf;
+}
+.mte-status-pill.warn { background: rgba(255, 217, 61, 0.15); color: #ffd93d; }
+.mte-status-pill.err { background: rgba(255, 107, 107, 0.15); color: #ff6b6b; }
+.mte-pristine {
+    font-size: 11px;
+    color: #8a8aa0;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.mte-loading {
+    text-align: center;
+    padding: 24px;
+    color: #8a8aa0;
+    font-size: 13px;
+}
+.mte-injection {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 2px solid rgba(168, 230, 207, 0.3);
+    transition: border-color 0.2s;
+    cursor: default;
+}
+.mte-injection.on { border-left-color: #a8e6cf; }
+.mte-injection.warn { border-left-color: #ffd93d; }
+.mte-injection.err { border-left-color: #ff6b6b; }
+.mte-inj-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    gap: 8px;
+}
+.mte-inj-name-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+}
+.mte-inj-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #e8e8f0;
+}
+.mte-info-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(168, 230, 207, 0.15);
+    color: #a8e6cf;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: all 0.15s;
+    font-weight: 600;
+}
+.mte-info-icon:hover {
+    background: rgba(168, 230, 207, 0.3);
+    transform: scale(1.1);
+}
+.mte-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #aaa;
+}
+.mte-badge.on { background: rgba(168, 230, 207, 0.18); color: #a8e6cf; }
+.mte-badge.warn { background: rgba(255, 217, 61, 0.18); color: #ffd93d; }
+.mte-badge.err { background: rgba(255, 107, 107, 0.18); color: #ff6b6b; }
+.mte-inj-desc {
+    font-size: 11px;
+    color: #8a8aa0;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+.mte-inj-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mte-inj-meta {
+    font-size: 10px;
+    color: #6b6b80;
+    font-family: monospace;
+}
+.mte-toggle {
+    position: relative;
+    width: 38px;
+    height: 20px;
+    background: #2a2a4a;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    padding: 0;
+}
+.mte-toggle.on { background: #a8e6cf; }
+.mte-toggle.busy { opacity: 0.5; cursor: wait; }
+.mte-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+.mte-toggle.on .mte-knob { transform: translateX(18px); }
+.mte-tip {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: rgba(255, 217, 61, 0.08);
+    border-left: 2px solid #ffd93d;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #d4c98a;
+    line-height: 1.5;
+}
+.mte-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+.mte-btn {
+    flex: 1;
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: #e8e8f0;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+}
+.mte-btn:hover { background: rgba(168, 230, 207, 0.12); border-color: rgba(168, 230, 207, 0.3); }
+.mte-btn.primary { background: rgba(168, 230, 207, 0.15); border-color: rgba(168, 230, 207, 0.4); color: #a8e6cf; }
+.mte-btn.primary:hover { background: rgba(168, 230, 207, 0.22); }
+.mte-log {
+    margin-top: 8px;
+    padding: 6px 8px;
+    font-size: 10px;
+    color: #6b6b80;
+    font-family: monospace;
+    max-height: 60px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+.mte-log:empty { display: none; }
+
+/* === 详情弹层 === */
+.mte-detail-mask {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 10, 20, 0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 14px;
+    z-index: 100;
+    overflow-y: auto;
+    padding: 16px;
+    box-sizing: border-box;
+    animation: mte-fade-in 0.18s ease-out;
+}
+.mte-detail-mask.show { display: block; }
+@keyframes mte-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.mte-detail-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(168, 230, 207, 0.15);
+}
+.mte-detail-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #a8e6cf;
+    flex: 1;
+}
+.mte-detail-close {
+    height: 26px;
+    padding: 0 12px;
+    border-radius: 6px;
+    background: rgba(168, 230, 207, 0.12);
+    color: #a8e6cf;
+    border: 1px solid rgba(168, 230, 207, 0.3);
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    transition: all 0.15s;
+    font-family: inherit;
+    font-weight: 500;
+}
+.mte-detail-close:hover {
+    background: rgba(168, 230, 207, 0.22);
+    border-color: rgba(168, 230, 207, 0.5);
+}
+.mte-detail-section {
+    margin-bottom: 14px;
+}
+.mte-detail-section:last-child { margin-bottom: 0; }
+.mte-detail-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #a8e6cf;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.mte-detail-text {
+    font-size: 12px;
+    color: #d0d0e0;
+    line-height: 1.7;
+}
+.mte-detail-anchor {
+    font-family: monospace;
+    font-size: 11px;
+    color: #ffd93d;
+    background: rgba(255, 217, 61, 0.08);
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+}
+.mte-detail-example {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    border-left: 2px solid rgba(168, 230, 207, 0.3);
+}
+.mte-detail-example-input {
+    font-family: monospace;
+    font-size: 11px;
+    color: #a8e6cf;
+    margin-bottom: 3px;
+    word-break: break-all;
+}
+.mte-detail-example-effect {
+    font-size: 11px;
+    color: #aaa;
+}
+.mte-detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.mte-detail-list li {
+    font-size: 12px;
+    color: #d0d0e0;
+    line-height: 1.7;
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 4px;
+}
+.mte-detail-list li::before {
+    content: "·";
+    position: absolute;
+    left: 4px;
+    color: #a8e6cf;
+    font-weight: 700;
+}
+.mte-detail-empty {
+    text-align: center;
+    color: #6b6b80;
+    font-size: 12px;
+    padding: 20px;
+}
+</style>
+
+<div class="mte-card">
+    <div class="mte-header">
+        <span class="mte-title">元思考链增强器</span>
+        <span class="mte-status-pill" id="mte-overall">检查中...</span>
+    </div>
+    <div class="mte-pristine" id="mte-pristine">纯净备份：检查中...</div>
+    <div id="mte-injections">
+        <div class="mte-loading">加载中...</div>
+    </div>
+    <div class="mte-tip" id="mte-tip" style="display:none;">
+        ⚠️ 注入已修改，需要重启 VCP 服务后生效
+    </div>
+    <div class="mte-actions">
+        <button class="mte-btn primary" id="mte-apply">全部应用</button>
+        <button class="mte-btn" id="mte-refresh">刷新</button>
+    </div>
+    <div class="mte-log" id="mte-log"></div>
+
+    <!-- 详情弹层 -->
+    <div class="mte-detail-mask" id="mte-detail-mask">
+        <div class="mte-detail-header">
+            <button class="mte-detail-close" id="mte-detail-close">← 返回</button>
+            <span class="mte-detail-title" id="mte-detail-title">详情</span>
+        </div>
+        <div id="mte-detail-body"></div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var ENDPOINT = '/admin_api/MetaThinkingEnhancer';
+    var STATUS_LABEL = {
+        'injected': '已注入',
+        'disabled': '已关闭',
+        'enabled_not_injected': '待注入',
+        'disabled_but_injected': '待卸载',
+        'anchor_missing': '锚点丢失',
+        'marker_broken': '标记损坏'
+    };
+
+    var _injectionsCache = [];
+
+    function getBadgeKind(status) {
+        if (status === 'injected') return 'on';
+        if (status === 'enabled_not_injected' || status === 'disabled_but_injected') return 'warn';
+        if (status === 'anchor_missing' || status === 'marker_broken') return 'err';
+        return '';
+    }
+
+    function logMsg(msg) {
+        var el = document.getElementById('mte-log');
+        var t = new Date();
+        var time = String(t.getHours()).padStart(2,'0') + ':' + String(t.getMinutes()).padStart(2,'0') + ':' + String(t.getSeconds()).padStart(2,'0');
+        el.textContent = '[' + time + '] ' + msg + '\n' + el.textContent;
+        if (el.textContent.length > 800) el.textContent = el.textContent.slice(0, 800);
+    }
+
+    async function callApi(path, options) {
+        try {
+            if (options && options.method === 'POST') {
+                return await window.__vcpProxyFetch(ENDPOINT + path, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: options.body ? JSON.stringify(options.body) : undefined
+                });
+            }
+            return await window.__vcpProxyFetch(ENDPOINT + path);
+        } catch (err) {
+            logMsg('请求失败：' + err.message);
+            return null;
+        }
+    }
+
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function(c) {
+            return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+        });
+    }
+
+    function showDetail(injId) {
+        var inj = null;
+        for (var i = 0; i < _injectionsCache.length; i++) {
+            if (_injectionsCache[i].id === injId) { inj = _injectionsCache[i]; break; }
+        }
+        if (!inj) return;
+
+        document.getElementById('mte-detail-title').textContent = inj.name || inj.id;
+        var body = document.getElementById('mte-detail-body');
+
+        if (!inj.details) {
+            body.innerHTML = '<div class="mte-detail-empty">该模块未提供详细信息</div>';
+        } else {
+            var d = inj.details;
+            var html = '';
+
+            if (d.purpose) {
+                html += '<div class="mte-detail-section">';
+                html += '<div class="mte-detail-label">用途</div>';
+                html += '<div class="mte-detail-text">' + escapeHtml(d.purpose) + '</div>';
+                html += '</div>';
+            }
+
+            if (d.usage) {
+                html += '<div class="mte-detail-section">';
+                html += '<div class="mte-detail-label">怎么用</div>';
+                html += '<div class="mte-detail-text">' + escapeHtml(d.usage) + '</div>';
+                html += '</div>';
+            }
+
+            if (d.examples && d.examples.length > 0) {
+                html += '<div class="mte-detail-section">';
+                html += '<div class="mte-detail-label">使用示例</div>';
+                for (var j = 0; j < d.examples.length; j++) {
+                    var ex = d.examples[j];
+                    html += '<div class="mte-detail-example">';
+                    html += '<div class="mte-detail-example-input">' + escapeHtml(ex.input) + '</div>';
+                    html += '<div class="mte-detail-example-effect">→ ' + escapeHtml(ex.effect) + '</div>';
+                    html += '</div>';
+                }
+                html += '</div>';
+            }
+
+            if (d.mechanism) {
+                html += '<div class="mte-detail-section">';
+                html += '<div class="mte-detail-label">工作机制</div>';
+                html += '<div class="mte-detail-text">' + escapeHtml(d.mechanism) + '</div>';
+                html += '</div>';
+            }
+
+            if (d.anchor) {
+                html += '<div class="mte-detail-section">';
+                html += '<div class="mte-detail-label">注入位置</div>';
+                html += '<div class="mte-detail-text">';
+                html += '<span class="mte-detail-anchor">' + escapeHtml(d.anchor) + '</span>';
+                if (d.position) html += ' <span style="color:#8a8aa0;">（' + escapeHtml(d.position) + '）</span>';
+                html += '</div>';
+                html += '</div>';
+            }
+
+            if (d.caveats && d.caveats.length > 0) {
+                html += '<div class="mte-detail-section">';
+                html += '<div class="mte-detail-label">注意事项</div>';
+                html += '<ul class="mte-detail-list">';
+                for (var k = 0; k < d.caveats.length; k++) {
+                    html += '<li>' + escapeHtml(d.caveats[k]) + '</li>';
+                }
+                html += '</ul>';
+                html += '</div>';
+            }
+
+            html += '<div class="mte-detail-section">';
+            html += '<div class="mte-detail-label">基本信息</div>';
+            html += '<div class="mte-detail-text" style="font-family:monospace;font-size:11px;">';
+            html += 'ID：' + escapeHtml(inj.id) + '<br>';
+            html += '版本：v' + escapeHtml(inj.version || '0.0.0') + '<br>';
+            html += '当前状态：' + escapeHtml(STATUS_LABEL[inj.status] || inj.status);
+            html += '</div>';
+            html += '</div>';
+
+            body.innerHTML = html;
+        }
+
+        document.getElementById('mte-detail-mask').classList.add('show');
+    }
+
+    function hideDetail() {
+        document.getElementById('mte-detail-mask').classList.remove('show');
+    }
+
+    function renderStatus(data) {
+        if (!data || !data.ok) {
+            document.getElementById('mte-overall').textContent = '加载失败';
+            document.getElementById('mte-overall').className = 'mte-status-pill err';
+            return;
+        }
+
+        var overall = document.getElementById('mte-overall');
+        var pristineEl = document.getElementById('mte-pristine');
+        var tipEl = document.getElementById('mte-tip');
+
+        var hasErr = false;
+        var hasActive = false;
+        var hasPending = false;
+
+        var injections = data.injections || [];
+        _injectionsCache = injections;
+
+        for (var i = 0; i < injections.length; i++) {
+            var st = injections[i].status;
+            if (st === 'anchor_missing' || st === 'marker_broken') hasErr = true;
+            if (st === 'injected') hasActive = true;
+            if (st === 'enabled_not_injected' || st === 'disabled_but_injected') hasPending = true;
+        }
+
+        if (hasErr) {
+            overall.textContent = '存在异常';
+            overall.className = 'mte-status-pill err';
+        } else if (hasActive) {
+            overall.textContent = '运行中';
+            overall.className = 'mte-status-pill';
+        } else {
+            overall.textContent = '待机';
+            overall.className = 'mte-status-pill warn';
+        }
+
+        if (data.pristine) {
+            var p = data.pristine;
+            if (!p.pristineExists) {
+                pristineEl.textContent = '纯净备份：未创建（点击"全部应用"自动创建）';
+            } else if (p.targetHasMarker) {
+                pristineEl.textContent = '纯净备份：已创建 · 当前为增强态';
+            } else if (p.inSync) {
+                pristineEl.textContent = '纯净备份：已同步 · 与目标文件一致';
+            } else {
+                pristineEl.textContent = '纯净备份：检测到 VCP 已更新，下次应用时同步';
+            }
+        }
+
+        tipEl.style.display = hasPending ? 'block' : 'none';
+
+        var listEl = document.getElementById('mte-injections');
+        listEl.innerHTML = '';
+
+        if (injections.length === 0) {
+            listEl.innerHTML = '<div class="mte-loading">没有注入模块</div>';
+            return;
+        }
+
+        for (var j = 0; j < injections.length; j++) {
+            var inj = injections[j];
+            var kind = getBadgeKind(inj.status);
+
+            var card = document.createElement('div');
+            card.className = 'mte-injection' + (kind ? ' ' + kind : '');
+
+            var html = '';
+            html += '<div class="mte-inj-top">';
+            html += '<div class="mte-inj-name-wrap">';
+            html += '<span class="mte-inj-name">' + escapeHtml(inj.name || inj.id) + '</span>';
+            html += '<button class="mte-info-icon" data-detail-id="' + inj.id + '" title="查看详情">?</button>';
+            html += '</div>';
+            html += '<span class="mte-badge ' + kind + '">' + (STATUS_LABEL[inj.status] || inj.status) + '</span>';
+            html += '</div>';
+            if (inj.description) {
+                html += '<div class="mte-inj-desc">' + escapeHtml(inj.description) + '</div>';
+            }
+            html += '<div class="mte-inj-bottom">';
+            html += '<span class="mte-inj-meta">' + inj.id + ' · v' + (inj.version || '0.0.0') + '</span>';
+            html += '<button class="mte-toggle ' + (inj.enabled ? 'on' : '') + '" data-id="' + inj.id + '" data-enabled="' + (inj.enabled ? '1' : '0') + '">';
+            html += '<span class="mte-knob"></span>';
+            html += '</button>';
+            html += '</div>';
+
+            card.innerHTML = html;
+            listEl.appendChild(card);
+        }
+
+        var toggles = listEl.querySelectorAll('.mte-toggle');
+        for (var k = 0; k < toggles.length; k++) {
+            toggles[k].addEventListener('click', onToggleClick);
+        }
+
+        var infos = listEl.querySelectorAll('.mte-info-icon');
+        for (var m = 0; m < infos.length; m++) {
+            infos[m].addEventListener('click', function(e) {
+                showDetail(e.currentTarget.getAttribute('data-detail-id'));
+            });
+        }
+    }
+
+    async function onToggleClick(e) {
+        var btn = e.currentTarget;
+        var id = btn.getAttribute('data-id');
+        var currentEnabled = btn.getAttribute('data-enabled') === '1';
+        var newEnabled = !currentEnabled;
+
+        btn.classList.add('busy');
+        logMsg((newEnabled ? '开启' : '关闭') + '：' + id);
+
+        var result = await callApi('/toggle', {
+            method: 'POST',
+            body: { id: id, enabled: newEnabled }
+        });
+
+        btn.classList.remove('busy');
+
+        if (result && result.ok) {
+            logMsg(result.modified ? '已重建目标文件' : '无需修改');
+            await refresh();
+        } else {
+            logMsg('操作失败：' + (result && result.error ? result.error : '未知错误'));
+        }
+    }
+
+    async function refresh() {
+        var data = await callApi('/status');
+        renderStatus(data);
+    }
+
+    async function applyAll() {
+        logMsg('正在全部应用...');
+        var result = await callApi('/apply', { method: 'POST' });
+        if (result && result.ok) {
+            logMsg(result.modified ? '已重建目标文件' : '无需修改');
+            await refresh();
+        } else {
+            logMsg('应用失败：' + (result && result.error ? result.error : '未知错误'));
+        }
+    }
+
+    document.getElementById('mte-apply').addEventListener('click', applyAll);
+    document.getElementById('mte-refresh').addEventListener('click', refresh);
+    document.getElementById('mte-detail-close').addEventListener('click', hideDetail);
+    document.getElementById('mte-detail-mask').addEventListener('click', function(e) {
+        if (e.target.id === 'mte-detail-mask') hideDetail();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && document.getElementById('mte-detail-mask').classList.contains('show')) {
+            hideDetail();
+        }
+    });
+
+    refresh();
+    setInterval(refresh, 30000);
+})();
+</script>

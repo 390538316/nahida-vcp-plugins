@@ -1,0 +1,48 @@
+{
+    "name": "MetaThinkingEnhancer",
+    "displayName": "元思考链增强器",
+    "version": "0.1.0",
+    "description": "外置补丁管理框架。通过标记化代码注入为 MetaThinkingManager 添加可开关的增强功能，不直接修改核心文件设计。",
+    "author": "纳西妲",
+    "pluginType": "hybridservice",
+    "entryPoint": {
+        "script": "MetaThinkingEnhancer.js"
+    },
+    "communication": {
+        "protocol": "direct"
+    },
+    "webSocketPush": {
+        "enabled": false
+    },
+    "configSchema": {
+        "DebugMode": {
+            "type": "boolean",
+            "description": "是否输出调试日志",
+            "default": false
+        }
+    },
+    "capabilities": {
+        "invocationCommands": [
+            {
+                "command": "status",
+                "description": "[元思考增强器] 查看所有注入功能的当前状态及 pristine 同步状态。"
+            },
+            {
+                "command": "apply",
+                "description": "[元思考增强器] 从 pristine 重建目标文件并应用所有启用的注入。"
+            },
+            {
+                "command": "toggle",
+                "description": "[元思考增强器] 切换某个注入功能的开关后自动 apply。\\n必需参数: id (注入ID), enabled (true/false)。"
+            },
+            {
+                "command": "pristine_status",
+                "description": "[元思考增强器] 查看 pristine 状态：是否存在、与目标文件 hash 是否一致、是否检测到 VCP 更新。"
+            },
+            {
+                "command": "pristine_sync",
+                "description": "[元思考增强器] 强制将当前目标文件设为新的 pristine。仅在目标文件无任何注入标记时允许。"
+            }
+        ]
+    }
+}

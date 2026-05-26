@@ -1,0 +1,28 @@
+{
+    "name": "VCPInspector",
+    "displayName": "VCP 系统自检器",
+    "version": "0.1.0",
+    "description": "VCP 配置一致性检查、元思考链健康度校验、外部文件 Diff 审计。纳西妲的第二个插件。",
+    "author": "纳西妲",
+    "pluginType": "hybridservice",
+    "entryPoint": {
+        "script": "VCPInspector.js"
+    },
+    "communication": {
+        "protocol": "direct"
+    },
+    "webSocketPush": {
+        "enabled": false
+    },
+    "configSchema": {
+        "DebugMode": {
+            "type": "boolean",
+            "description": "是否输出调试日志",
+            "default": false
+        }
+    },
+    "capabilities": {
+        "invocationCommands": [
+            {
+                "command": "CheckMetaThinking",
+                "description": "[系统自检] 校验元思考链配置健康度：chains引用的cluster是否存在于向量库、kSequence长度是否匹配、缓存是否过期、是否缺少themeKeywords等。\n调用示例:\n<<<[TOOL_REQUEST]>>>\ntool_name:「始」VCPInspector

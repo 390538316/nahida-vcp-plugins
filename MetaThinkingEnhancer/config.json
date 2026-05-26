@@ -1,0 +1,14 @@
+{
+    "targetFile": "D:\\VCP\\VCPToolBox\\Plugin\\RAGDiaryPlugin\\MetaThinkingManager.js",
+    "backup": true,
+    "backupDir": "backups",
+    "injections": {
+        "ai_override": {
+            "enabled": false,
+            "anchor": "if (isAutoMode) {",
+            "position": "before",
+            "file": "ai_override.js",
+            "description": "AI 自选链路由"
+        }
+    }
+}

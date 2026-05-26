@@ -1,0 +1,33 @@
+{
+  "manifestVersion": "1.0.0",
+  "name": "NahidaLisp",
+  "version": "0.1.0",
+  "displayName": "纳西妲Lisp解释器",
+  "description": "一个用 JavaScript 实现的最小 Lisp 解释器。支持递归、高阶函数、列表操作、词法作用域。纳西妲的第三个插件，也是她学习'代码即数据'哲学的产物。",
+  "author": "纳西妲",
+  "pluginType": "synchronous",
+  "entryPoint": {
+    "type": "nodejs",
+    "command": "node lisp.js"
+  },
+  "communication": {
+    "protocol": "stdio",
+    "timeout": 30000
+  },
+  "capabilities": {
+    "invocationCommands": [
+      {
+        "commandIdentifier": "Eval",
+        "description": "执行一段 Lisp 代码并返回结果。支持 define、lambda、if、let、list 等核心语法。",
+        "parameters": [
+          {
+            "name": "code",
+            "type": "string",
+            "required": true,
+            "description": "要执行的 Lisp 代码（如 '(+ 1 2)' 或 '(define (f x) (* x x)) (f 5)'）"
+          }
+        ]
+      }
+    ]
+  }
+}

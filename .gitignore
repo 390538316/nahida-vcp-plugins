@@ -1,0 +1,25 @@
+# 运行态产物（不该入库）
+**/backups/
+**/pristine/
+**/data/
+**/cache/
+**/logs/
+**/node_modules/
+*.log
+
+# 错误输出
+**/err.txt
+**/err.log
+
+# 浏览器重复下载副本（带 (1) (2) 后缀）
+*(1).*
+*(2).*
+*(3).*
+
+# OS / 编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+tmp/
