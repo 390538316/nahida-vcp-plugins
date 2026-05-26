@@ -30,4 +30,12 @@
         "invocationCommands": [
             {
                 "command": "summary",
-                "description": "[元思考观察] 输出最近 N 天的元思考链命中统计摘要。\n可选参数: days (数字, 默认 7)。\n调用示例:\n<<<[TOOL_REQUEST]>>>\nmaid:「始」纳西妲
+                "description": "输出最近 N 天的元思考链命中统计摘要。可选参数: days (数字, 默认 7)。"
+            },
+            {
+                "command": "events",
+                "description": "导出原始事件 JSONL。可选参数: days (数字, 默认 1), limit (数字, 默认 100)。"
+            }
+        ]
+    }
+}
